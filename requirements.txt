@@ -1,0 +1,2 @@
+PySimpleGUI==4.47.0
+speedtest-cli==2.1.3
