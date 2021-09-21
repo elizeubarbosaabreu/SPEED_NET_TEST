@@ -7,65 +7,59 @@
 
 
 import speedtest
-from time import sleep
 import PySimpleGUI as sg
-from os import system
+from random import choice
 
-sg.theme('Topanga')
-
-layout = [ [sg.Stretch(), sg.T('Speed Net Speed', font=('Arial 24')), sg.Stretch()],
-           [sg.Output(size=(80,7), font=('Arial 10'))],
-           [sg.Button('Testar Velocidade'), sg.Stretch(), sg.T('Desenvolvido por @elizeu.barbosa.abreu')]
-           ]
-
-window = sg.Window('Testador de Velocidade da Intertnet', layout)
-
-while True:
-    event, values = window.read()
-    if event == sg.WIN_CLOSED:
-        break    
-    
-    
-    print('\n\n\n\n\n\nPaciência!!! Estamos testando a velocidade de sua internet...')
-    sleep(5)
-    
-    print('\n\n\n\n\n\nDescobrindo um caminho na velocidade da luz...')
-    sleep(5)
-    
-    print('\n\n\n\n\n\nEncontramos um servidor que parece ser rápido...')
-    sleep(5)
-    
-    servers = []
-    # If you want to test against a specific server
-    # servers = [1234]
+def medir_net():
+    servers = []   
 
     threads = None
-    # If you want to use a single threaded test
-    # threads = 1
 
+    print('INICIANDO OS TESTES...')
     s = speedtest.Speedtest()
     
-    print('\n\n\n\n\n\nAnálise em execução...')
-    sleep(5)   
-    
-    print('\n\n\n\n\n\nAguarde mais um pouco...')
-    sleep(3)
+    print('LOCALIZANDO SERVIDORES...')
     s.get_servers(servers)
+    
     s.get_best_server()
+    servidor = s.get_best_server()
+    print(f'SERVIDOR: {(servidor["sponsor"]).upper()} LOCALIZADO...')
+    print(f'ACESSANDO: {servidor["url"]}')
+    print(f'LOCALIZA\u00c7\u00c3O DO SERVIDOR: {(servidor["name"]).upper()}/{(servidor["country"]).upper()}...')
+    print('AGUARDE O RESULTADO...\n')
+        
     s.download(threads=threads)
     s.upload(threads=threads)
-
-
-    servidor = s.get_best_server()
-    download_speed = (s.download(threads=threads))/1000000
-    upload_speed = (s.upload(threads=threads))/1000000
     
+    download_speed = (s.download(threads=threads))/(1024 ** 2)
+    upload_speed = (s.upload(threads=threads))/(1024 ** 2)
+     
+    print(f'SPEED DOWNLOAD: {download_speed:.2f} Mbits')
+    print(f'SPEED UPLOAD: {upload_speed:.2f} Mbits')
     
-    print('\n')
-    print(f'SERVIDOR: {servidor["sponsor"]} ({servidor["url"]})')
-    print(f'LOCALIDADE: {servidor["name"]}/{servidor["country"]}')
-    print(f'SPEED DOWNLOAD: {download_speed:.2f} Mbps')
-    print(f'SPEED UPLOAD: {upload_speed:.2f} Mbps')
-    print(f'LATÊNCIA: {(servidor["latency"]):.2f} ms')
+    ping = s.results.ping
+    
+    print(f'LAT\u00caNCIA: {ping:.2f} ms')
+ 
+# Cada vez que abrir o software ele aparecer\u00e1 com um tema diferente
+temas = ['Black', 'BlueMono', 'BluePurple', 'BrightColors', 'BrownBlue', 'Dark', 'Dark2', 'DarkAmber', 'DarkBlack', 'DarkBlack1', 'DarkBlue', 'DarkBlue1', 'DarkBlue10', 'DarkBlue11', 'DarkBlue12', 'DarkBlue13', 'DarkBlue14', 'DarkBlue15', 'DarkBlue16', 'DarkBlue17', 'DarkBlue2', 'DarkBlue3', 'DarkBlue4', 'DarkBlue5', 'DarkBlue6', 'DarkBlue7', 'DarkBlue8', 'DarkBlue9', 'DarkBrown', 'DarkBrown1', 'DarkBrown2', 'DarkBrown3', 'DarkBrown4', 'DarkBrown5', 'DarkBrown6', 'DarkBrown7', 'DarkGreen', 'DarkGreen1', 'DarkGreen2', 'DarkGreen3', 'DarkGreen4', 'DarkGreen5', 'DarkGreen6', 'DarkGreen7', 'DarkGrey', 'DarkGrey1', 'DarkGrey10', 'DarkGrey11', 'DarkGrey12', 'DarkGrey13', 'DarkGrey14', 'DarkGrey2', 'DarkGrey3', 'DarkGrey4', 'DarkGrey5', 'DarkGrey6', 'DarkGrey7', 'DarkGrey8', 'DarkGrey9', 'DarkPurple', 'DarkPurple1', 'DarkPurple2', 'DarkPurple3', 'DarkPurple4', 'DarkPurple5', 'DarkPurple6', 'DarkPurple7', 'DarkRed', 'DarkRed1', 'DarkRed2', 'DarkTanBlue', 'DarkTeal', 'DarkTeal1', 'DarkTeal10', 'DarkTeal11', 'DarkTeal12', 'DarkTeal2', 'DarkTeal3', 'DarkTeal4', 'DarkTeal5', 'DarkTeal6', 'DarkTeal7', 'DarkTeal8', 'DarkTeal9', 'Default', 'Default1', 'DefaultNoMoreNagging', 'GrayGrayGray', 'Green', 'GreenMono', 'GreenTan', 'HotDogStand', 'Kayak', 'LightBlue', 'LightBlue1', 'LightBlue2', 'LightBlue3', 'LightBlue4', 'LightBlue5', 'LightBlue6', 'LightBlue7', 'LightBrown', 'LightBrown1', 'LightBrown10', 'LightBrown11', 'LightBrown12', 'LightBrown13', 'LightBrown2', 'LightBrown3', 'LightBrown4', 'LightBrown5', 'LightBrown6', 'LightBrown7', 'LightBrown8', 'LightBrown9', 'LightGray1', 'LightGreen', 'LightGreen1', 'LightGreen10', 'LightGreen2', 'LightGreen3', 'LightGreen4', 'LightGreen5', 'LightGreen6', 'LightGreen7', 'LightGreen8', 'LightGreen9', 'LightGrey', 'LightGrey1', 'LightGrey2', 'LightGrey3', 'LightGrey4', 'LightGrey5', 'LightGrey6', 'LightPurple', 'LightTeal', 'LightYellow', 'Material1', 'Material2', 'NeutralBlue', 'Purple', 'Python', 'Reddit', 'Reds', 'SandyBeach', 'SystemDefault', 'SystemDefault1', 'SystemDefaultForReal', 'Tan', 'TanBlue', 'TealMono', 'Topanga']
+tema = choice(temas)
+sg.theme(f'{tema}')
+
+layout = [ [sg.Stretch(), sg.T('Internet Speed Test', font=('Arial 24')), sg.Stretch()],
+           [sg.Output(size=(80,7), font=('Arial 10'))],
+           [sg.T('Desenvolvido por @elizeu.barbosa.abreu'), sg.Stretch(), sg.Button('Testar Velocidade')]
+           ]
+
+window = sg.Window('INTERNET SPEED TEST', layout, resizable=True)
+
+while True:
+    
+    event, values = window.read()
+        
+    if event == sg.WIN_CLOSED:
+        break
+    
+    medir_net()
 
 window.close()
