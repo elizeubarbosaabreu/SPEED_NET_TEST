@@ -4,7 +4,8 @@
 #  ___) | |_) |  __/  __/ (_| | | |\  |  __/ |_    | |  __/\__ \ |_ 
 # |____/| .__/ \___|\___|\__,_| |_| \_|\___|\__|   |_|\___||___/\__|
 #       |_|                                                         
-# Testador de Internet
+
+
 import speedtest
 from time import sleep
 import PySimpleGUI as sg
@@ -63,8 +64,8 @@ while True:
     print('\n')
     print(f'SERVIDOR: {servidor["sponsor"]} ({servidor["url"]})')
     print(f'LOCALIDADE: {servidor["name"]}/{servidor["country"]}')
-    print(f'SPEED DOWNLOAD: {download_speed:.2f} m/s')
-    print(f'SPEED UPLOAD: {upload_speed:.2f} m/s')
-    print(f'LATÊNCIA: {(servidor["latency"]):.2f} m/s')
+    print(f'SPEED DOWNLOAD: {download_speed:.2f} Mbps')
+    print(f'SPEED UPLOAD: {upload_speed:.2f} Mbps')
+    print(f'LATÊNCIA: {(servidor["latency"]):.2f} ms')
 
 window.close()
